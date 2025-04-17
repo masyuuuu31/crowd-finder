@@ -19,11 +19,15 @@ class ProjectInfo(BaseModel):
     # 金額
     price: str
     # 応募締切
-    deadline: datetime = None
+    deadline: str
     # 希望納期
-    delivery: datetime = None
+    delivery: str
     # 案件詳細
     detail: str
+    # 取引ページURL
+    trading_url: str
+    # カテゴリー
+    category: str
 
 
 # 複数案件レスポンス

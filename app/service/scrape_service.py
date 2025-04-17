@@ -13,7 +13,7 @@ def scrape_main():
     # ドライバー初期化
     driver = get_shared_driver(False)
     
-    platforms = [PLATFORM_NM_LANCERS]
+    platforms = [PLATFORM_NM_COCONALA]
 
     for platform in platforms:
         if platform:
