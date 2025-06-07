@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from selenium.webdriver import Chrome
-from ...schema.schemas import ProjectInfoListResponse
+from ...schema.schemas import ProjectInfo
+from typing import List
 
 class BaseScrapper(ABC):
 
@@ -13,7 +14,7 @@ class BaseScrapper(ABC):
         pass
 
     @abstractmethod
-    def run(self, driver:Chrome) -> ProjectInfoListResponse:
+    def run(self, driver:Chrome) -> List[ProjectInfo]:
         """
         案件サイト毎の共通インターフェース
         """

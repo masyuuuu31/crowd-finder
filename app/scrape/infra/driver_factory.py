@@ -67,6 +67,12 @@ def initialize_driver(headless=False):
         options.add_experimental_option("useAutomationExtension", False)
         options.add_argument(f"--user-agent={version_info['user_agent']}")
         options.add_argument("--ignore-certificate-errors")
+        
+        
+        options.add_argument("--disable-background-timer-throttling")
+        options.add_argument("--disable-backgrounding-occluded-windows")
+        options.add_argument("--disable-renderer-backgrounding")
+
 
         driver = Chrome(service=Service(), options=options)
 

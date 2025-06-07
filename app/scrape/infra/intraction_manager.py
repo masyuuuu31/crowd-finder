@@ -50,7 +50,7 @@ def find_element(
             raise
         return [] if multiple else None
     
-    
+
 def find_element(
     driver: WebDriver,
     by: By,
@@ -89,9 +89,9 @@ def find_element(
         return [] if multiple else None
     
 
-def wait_browser_load(driver: WebDriver, timeout: float = 60.0, raise_on_error: bool = False):
+def wait_browser_load(driver: WebDriver, timeout: float = 10.0, raise_on_error: bool = False):
     """
-    ブラウザのロードが完了するまでn秒待つ（初期60秒）
+    ブラウザのロードが完了するまでn秒待つ（初期10秒）
     """
     try:
         WebDriverWait(driver, timeout).until(

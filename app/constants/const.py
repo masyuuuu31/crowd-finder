@@ -1,8 +1,7 @@
 # プラットフォーム識別子
-PLATFORM_NM_LANCERS = "lancers"
-PLATFORM_NM_CROWDWORKS = "crowdworks"
-PLATFORM_NM_COCONALA = "coconala"
-
+PLATFORM_NM_LANCERS = "Lancers"
+PLATFORM_NM_CROWDWORKS = "クラウドワークス"
+PLATFORM_NM_COCONALA = "ココナラ"
 
 # URL
 PLATFORM_DOMAIN_LANCERS = "https://www.lancers.jp"
@@ -15,3 +14,9 @@ PLATFORM_URL_COCONALA = PLATFORM_DOMAIN_COCONALA + "/requests"
 
 CNST_CATEGORY_WEB = "Web制作"
 CNST_CATEGORY_DEV = "システム開発"
+
+# 開発モード(True=開発モードON/ False=開発モードOFF)
+DEBUG_MODE = True
+
+# スクレイピング中断件数（開発用）
+DEV_STOP_COUNT = 2

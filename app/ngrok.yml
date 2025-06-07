@@ -1,0 +1,8 @@
+version: 2
+authtoken: 2Sf4opA4jsAafgTMigEUuENkkpP_4V1WMZsk68L9h78hCkdSy
+
+tunnels:
+  fastapi-app:
+    proto: http
+    addr: 8000       # uvicorn --port 8000 で起動しているならこのまま
+    subdomain: omolabo

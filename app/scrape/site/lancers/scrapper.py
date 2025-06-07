@@ -1,10 +1,10 @@
 from ...base.base_scrapper import BaseScrapper
-from ....constants.const import PLATFORM_DOMAIN_LANCERS, PLATFORM_URL_LANCERS, PLATFORM_NM_LANCERS
+from ....constants.const import PLATFORM_DOMAIN_LANCERS, PLATFORM_URL_LANCERS, PLATFORM_NM_LANCERS, DEBUG_MODE, DEV_STOP_COUNT
 from ....schema.schemas import ProjectInfo
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-from ...infra.intraction_manager import random_delay, find_element
+from ...infra.intraction_manager import random_delay, find_element, wait_browser_load
 
 from typing import List
 
@@ -15,64 +15,71 @@ class LancersScrapper(BaseScrapper):
         return PLATFORM_DOMAIN_LANCERS
 
     def run(self, driver) -> List[ProjectInfo]:
-        # 仕事受注トップページ
-        driver.get(PLATFORM_URL_LANCERS)
         
-        # 「仕事を探す」を押下
-        btn = find_element(driver, By.XPATH, "//span[@class='css-16a2wt1']")
-        btn.click()
-        
-        first_search = True
-        
-        categories = ["システム開発", "Web制作"]
         all_projects: List[ProjectInfo] = []
-        
-        for category in categories:
+        try:
+            # 仕事受注トップページ
+            driver.get(PLATFORM_URL_LANCERS)
             
-            # カテゴリーから絞り込む
-            category_anchor = find_element(driver, By.XPATH,f"//dl[contains(@class, 'p-search-sidenav__list') and contains(@class, 'js-sp-category-toggle-target')]//a[contains(normalize-space(text()), '{category}')]")
-            category_anchor.click()
-
-            random_delay(delay_range=(0.5, 1.0))
+            # 「仕事を探す」を押下
+            btn = find_element(driver, By.XPATH, "//span[@class='css-16a2wt1']")
+            btn.click()
             
-            # 初回検索時のみ絞り込みを行う
-            if first_search:
-                # 仕事スタイルで絞り込む（プロジェクト、コンペ）
-                for checkbox_id in ['type-competition', 'type-project']:
-                    target_chb = find_element(driver, By.ID, checkbox_id)
-                    driver.execute_script("arguments[0].click();", target_chb)
-                    
-                # 絞り込む
-                search_btn = find_element(driver, By.XPATH, "//div[contains(@class, 'p-search-sidenav__refine')]//input[@id='Search']")
-                search_btn.click()
+            first_search = True
+            
+            categories = ["システム開発", "Web制作"]
+            
+            for category in categories:
                 
+                print(f"=====  カテゴリー: {category}  ======================================")
+                
+                # カテゴリーから絞り込む
+                category_anchor = find_element(driver, By.XPATH,f"//dl[contains(@class, 'p-search-sidenav__list') and contains(@class, 'js-sp-category-toggle-target')]//a[contains(normalize-space(text()), '{category}')]")
+                category_anchor.click()
+
                 random_delay(delay_range=(0.5, 1.0))
                 
-                first_search = False
+                # 初回検索時のみ絞り込みを行う
+                if first_search:
+                    # 仕事スタイルで絞り込む（プロジェクト、コンペ）
+                    for checkbox_id in ['type-competition', 'type-project']:
+                        target_chb = find_element(driver, By.ID, checkbox_id)
+                        driver.execute_script("arguments[0].click();", target_chb)
+                        
+                    # 絞り込む
+                    search_btn = find_element(driver, By.XPATH, "//div[contains(@class, 'p-search-sidenav__refine')]//input[@id='Search']")
+                    search_btn.click()
+                    
+                    random_delay(delay_range=(0.5, 1.0))
+                    
+                    first_search = False
 
-            current_page = 1
-            max_page = 3
-        
-            while current_page <= max_page:
-                
-                print(f"【{current_page}ページ目】")
-                all_projects.extend(scrape_projects_on_current_page(driver, category))
-
-                try:
-                    next_link = find_element(driver, By.XPATH, "//span[contains(@class, 'c-pager__item--next') and contains(@class, 'c-pager__item')]/a")
-                    driver.get(next_link.get_attribute("href"))
-                    current_page += 1
-                except Exception as e:
-                    print("次ページが見つからないため終了:", e)
-                    break
-
-            # 全てのカテゴリーに戻る
-            all_category =find_element(driver, By.XPATH, "//a[contains(@class, 'c-link') and contains(normalize-space(text()), 'すべてのカテゴリー')]")
-            all_category.click()
-            random_delay(delay_range=(1.0, 2.0))
+                current_page = 1
+                max_page = 2
             
+                while current_page <= max_page:
+                    
+                    print(f"【{current_page}ページ目】")
+                    all_projects.extend(scrape_projects_on_current_page(driver, category))
+
+                    try:
+                        next_link = find_element(driver, By.XPATH, "//span[contains(@class, 'c-pager__item--next') and contains(@class, 'c-pager__item')]/a")
+                        driver.get(next_link.get_attribute("href"))
+                        current_page += 1
+                    except Exception as e:
+                        print("次ページが見つからないため終了:", e)
+                        break
+
+                # 全てのカテゴリーに戻る
+                all_category =find_element(driver, By.XPATH, "//a[contains(@class, 'c-link') and contains(normalize-space(text()), 'すべてのカテゴリー')]")
+                all_category.click()
+                random_delay(delay_range=(1.0, 2.0))
+            
+        except Exception as e:
+            print(f"エラー発生: {e}")
         
-        return all_projects
+        finally:
+            return all_projects
         
 def scrape_projects_on_current_page(driver: WebDriver, category: str) -> List[ProjectInfo]:
     results: List[ProjectInfo] = []
@@ -80,7 +87,15 @@ def scrape_projects_on_current_page(driver: WebDriver, category: str) -> List[Pr
     div_xpath = "//div[contains(@class,'p-search-job-media') and contains(@class, 'c-media--item')]"
     divs = find_element(driver, By.XPATH, div_xpath, multiple=True)
     
+    count = 0
+    
     for div in divs:
+        
+        count+=1
+        
+        if DEBUG_MODE and count > DEV_STOP_COUNT:
+            break
+        
         div.click()
         random_delay(delay_range=(0.5, 1.0))
 
@@ -95,6 +110,7 @@ def scrape_projects_on_current_page(driver: WebDriver, category: str) -> List[Pr
                 raise RuntimeError("閲覧制限")
             
             title = title_elm.text.strip()
+            print(f"=== 案件名: {title} =========")
 
             # 価格の数値部分と単位部分をそれぞれ取得
             price_numbers = find_element(driver, By.XPATH, "//span[contains(@class, 'price-block')]//span[contains(@class, 'price-number')]", multiple=True)
@@ -105,6 +121,7 @@ def scrape_projects_on_current_page(driver: WebDriver, category: str) -> List[Pr
                     f"{num.text.strip()}{unit.text.strip()}"
                     for num, unit in zip(price_numbers, price_units)
                 ])
+                print(f"価格: {price}")
             else:
                 print("価格取得失敗")
 
@@ -113,6 +130,7 @@ def scrape_projects_on_current_page(driver: WebDriver, category: str) -> List[Pr
             deadline = None
             if deadline_elm:
                 deadline = deadline_elm.text.strip()
+                print(f"応募締切: {deadline}")
             else:
                 print("締切取得失敗")
             
@@ -121,6 +139,7 @@ def scrape_projects_on_current_page(driver: WebDriver, category: str) -> List[Pr
             delivery = None
             if delivery_elm:
                 delivery = delivery_elm.text.strip()
+                print(f"希望納期: {delivery}")
             else:
                 print("納期取得失敗")
 
@@ -137,9 +156,9 @@ def scrape_projects_on_current_page(driver: WebDriver, category: str) -> List[Pr
                 price=price,
                 deadline=deadline,
                 delivery=delivery,
-                description=description,
+                detail=description,
                 platform=PLATFORM_NM_LANCERS,
-                trading_url=driver.current_url,
+                url=driver.current_url,
                 category=category
             )  
             results.append(project)
@@ -148,4 +167,7 @@ def scrape_projects_on_current_page(driver: WebDriver, category: str) -> List[Pr
             print("案件詳細取得エラー:", e)
         
         driver.back()
+        wait_browser_load(driver)
         random_delay(delay_range=(0.5, 1.0))
+        
+    return results
