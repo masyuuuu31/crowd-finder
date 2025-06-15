@@ -9,8 +9,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from ...utils.logger import setup_logger
+from ...config import BASE_DIR
+import os
 
-logger = setup_logger(__name__)
+log_file = os.path.join(BASE_DIR, "logs", "server.log")
+
+# 共通ロガーをセットアップ
+logger = setup_logger(__name__, log_file=log_file)
 
 # ランダムな遅延を挟む
 def random_delay(delay_range=(0.5, 1.0)) -> None:
@@ -77,3 +82,21 @@ def wait_browser_load(driver: WebDriver, timeout: float = 10.0, raise_on_error: 
         if raise_on_error:
             raise
         return False
+
+
+def safe_click(driver, element, retries=2, delay=1.0):
+    """
+    JSを使ってクリックを安全に試みる。エラーが出た場合はリトライ。
+    """
+    proc_name = "safe_click"
+    for attempt in range(retries):
+        try:
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+            driver.execute_script("arguments[0].click();", element)
+            logger.debug(f"[{proc_name}] (attempt={attempt}) 要素クリック成功")
+            return True
+        except Exception as e:
+            logger.warning(f"[{proc_name}] (attempt={attempt}) 要素クリック失敗",  exc_info=True)
+            random_delay()
+            
+    raise RuntimeError("safe_click failed after retries")

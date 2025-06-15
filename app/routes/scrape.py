@@ -4,7 +4,14 @@ from ..service.scrape_service import scrape_main
 import threading
 from ..utils.logger import setup_logger
 
-logger = setup_logger(__name__)
+from ..config import BASE_DIR
+import os
+
+log_file = os.path.join(BASE_DIR, "logs", "server.log")
+
+# 共通ロガーをセットアップ
+logger = setup_logger(__name__, log_file=log_file)
+
 router = APIRouter()
 
 

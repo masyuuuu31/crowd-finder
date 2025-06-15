@@ -4,13 +4,18 @@ from ....schema.schemas import ProjectInfo
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-from ...infra.intraction_manager import random_delay, find_element, wait_browser_load
+from ...infra.intraction_manager import random_delay, find_element, wait_browser_load, safe_click
 
 from typing import List
 
 from ....utils.logger import setup_logger
+from ....config import BASE_DIR
+import os
 
-logger = setup_logger(__name__)
+log_file = os.path.join(BASE_DIR, "logs", "server.log")
+
+# 共通ロガーをセットアップ
+logger = setup_logger(__name__, log_file=log_file)
 
 class LancersScrapper(BaseScrapper):
     
@@ -34,7 +39,7 @@ class LancersScrapper(BaseScrapper):
             
             # 「仕事を探す」を押下
             btn = find_element(driver, By.XPATH, "//span[@class='css-16a2wt1']")
-            btn.click()
+            safe_click(driver, btn)
             logger.debug(f"[{proc_name}] 『仕事を探す』ボタン押下")
             
             first_search = True
@@ -46,7 +51,7 @@ class LancersScrapper(BaseScrapper):
                 
                 # カテゴリーから絞り込む
                 category_anchor = find_element(driver, By.XPATH,f"//dl[contains(@class, 'p-search-sidenav__list') and contains(@class, 'js-sp-category-toggle-target')]//a[contains(normalize-space(text()), '{category}')]")
-                category_anchor.click()
+                safe_click(driver, safe_click)
                 logger.debug(f"[{proc_name}] カテゴリ選択クリック: {category}")
 
                 random_delay(delay_range=(0.5, 1.0))
@@ -57,12 +62,12 @@ class LancersScrapper(BaseScrapper):
                     # 仕事スタイルで絞り込む（プロジェクト、コンペ）
                     for checkbox_id in ['type-competition', 'type-project']:
                         target_chb = find_element(driver, By.ID, checkbox_id)
-                        driver.execute_script("arguments[0].click();", target_chb)
+                        safe_click(driver, target_chb)
                         logger.debug(f"[{proc_name}/{category}] チェックボックスON: {checkbox_id}")
                         
                     # 絞り込む
                     search_btn = find_element(driver, By.XPATH, "//div[contains(@class, 'p-search-sidenav__refine')]//input[@id='Search']")
-                    search_btn.click()
+                    safe_click(driver, search_btn)
                     logger.debug(f"[{proc_name}/{category}] 絞り込みボタンクリック")
                     random_delay(delay_range=(0.5, 1.0))
                     
@@ -88,7 +93,7 @@ class LancersScrapper(BaseScrapper):
 
                 # 全てのカテゴリーに戻る
                 all_category =find_element(driver, By.XPATH, "//a[contains(@class, 'c-link') and contains(normalize-space(text()), 'すべてのカテゴリー')]")
-                all_category.click()
+                safe_click(driver, all_category)
                 random_delay(delay_range=(1.0, 2.0))
         
         except Exception as e:
@@ -116,7 +121,7 @@ class LancersScrapper(BaseScrapper):
                 break
             
             logger.debug(f"[{proc_name}/{category}] 案件{count}: リンククリック")
-            div.click()
+            safe_click(driver, div)
             random_delay(delay_range=(0.5, 1.0))
 
             try:

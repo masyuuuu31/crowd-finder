@@ -29,7 +29,8 @@ def attach_uvicorn_loggers(log_file: str):
 def setup_logger(name: str, level=logging.DEBUG, log_file: str = None) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(level)
-
+    logger.propagate = False  # <- これが重要！！
+    
     if logger.handlers:
         return logger  # ハンドラがすでに設定済みなら再設定しない
 

@@ -4,13 +4,19 @@ from ....schema.schemas import ProjectInfo
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-from ...infra.intraction_manager import random_delay, find_element, wait_browser_load
+from ...infra.intraction_manager import random_delay, find_element, wait_browser_load, safe_click
 
 from typing import List
 
 from ....utils.logger import setup_logger
 
-logger = setup_logger(__name__)
+from ....config import BASE_DIR
+import os
+
+log_file = os.path.join(BASE_DIR, "logs", "server.log")
+
+# 共通ロガーをセットアップ
+logger = setup_logger(__name__, log_file=log_file)
 
 class CoconaraScrapper(BaseScrapper):
     
@@ -44,7 +50,7 @@ class CoconaraScrapper(BaseScrapper):
                 # カテゴリーから絞り込む
                 category_btn = find_element(driver, By.XPATH,
                     f"//button[contains(@class, 'c-searchCategory-button') and .//span[contains(@class, 'category-name') and contains(normalize-space(), '{category}')]]")
-                category_btn.click()
+                safe_click(driver, category_btn)
                 logger.debug(f"[{proc_name}] カテゴリボタンクリック: {category}")
                 
                 random_delay(delay_range=(0.5, 1.0))
@@ -54,7 +60,7 @@ class CoconaraScrapper(BaseScrapper):
                     target_chb = find_element(driver, By.XPATH, 
                                             "//div[@class='c-searchRecruiting']//input[@class='check' and @type='checkbox']")
                     # JavaScriptでクリック（被り回避）
-                    driver.execute_script("arguments[0].click();", target_chb)
+                    safe_click(driver, target_chb)
                     logger.debug(f"[{proc_name}] 『募集中の仕事』チェックボックスON")
                     random_delay(delay_range=(0.5, 1.0))
                     
@@ -77,8 +83,7 @@ class CoconaraScrapper(BaseScrapper):
                             # かつ直下に chevron-right アイコンを持つ
                             + "[./i[contains(concat(' ', normalize-space(@class), ' '), ' -chevron-right ')]]"
                             )
-                        
-                        driver.execute_script("arguments[0].click();", next_btn)
+                        safe_click(driver, next_btn)
                     
                         current_page += 1
                     except Exception as e:
@@ -91,7 +96,7 @@ class CoconaraScrapper(BaseScrapper):
                 
                 all_category = find_element(driver, By.XPATH, 
                                             "//button[@class='c-searchCategory-button' and .//span[@class='category-name' and contains(normalize-space(), 'すべてのカテゴリ')]]")
-                all_category.click()
+                safe_click(driver, all_category)
                 random_delay(delay_range=(1.0, 2.0))
         
         except Exception as e:
@@ -123,7 +128,7 @@ class CoconaraScrapper(BaseScrapper):
                     break
                     
                 logger.debug(f"[{proc_name}/{category}] 案件{count}: リンククリック")
-                driver.execute_script("arguments[0].click();", item)
+                safe_click(driver, item)
                 random_delay(delay_range=(0.5, 1.0))
                 
                 # ウィンドウハンドルを切り替える

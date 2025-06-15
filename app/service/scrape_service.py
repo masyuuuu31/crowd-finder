@@ -18,9 +18,13 @@ from ..schema.schemas import (
 from ..config import GAS_ENDPOINT
 import requests
 from ..utils.logger import setup_logger
+from ..config import BASE_DIR
+import os
+
+log_file = os.path.join(BASE_DIR, "logs", "server.log")
 
 # 共通ロガーをセットアップ
-logger = setup_logger(__name__)
+logger = setup_logger(__name__, log_file=log_file)
 
 
 def scrape_main(handle_info: HandleInfo):

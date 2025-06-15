@@ -11,14 +11,20 @@ from ....schema.schemas import ProjectInfo
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-from ...infra.intraction_manager import random_delay, find_element, wait_browser_load
+from ...infra.intraction_manager import random_delay, find_element, wait_browser_load, safe_click
 from selenium.webdriver.support.select import Select
 
 from typing import List
 
 from ....utils.logger import setup_logger
 
-logger = setup_logger(__name__)
+from ....config import BASE_DIR
+import os
+
+log_file = os.path.join(BASE_DIR, "logs", "server.log")
+
+# 共通ロガーをセットアップ
+logger = setup_logger(__name__, log_file=log_file)
 
 class CrowdWorksScrapper(BaseScrapper):
     
@@ -56,7 +62,7 @@ class CrowdWorksScrapper(BaseScrapper):
                 for a in a_list:
                     if category in a.text.strip():
                         logger.debug(f"[{proc_name}/{category}] カテゴリボタンクリック: {a.text.strip()}")
-                        a.click()
+                        safe_click(driver, a)
                         break
                 
                 wait_browser_load(driver)
@@ -66,13 +72,13 @@ class CrowdWorksScrapper(BaseScrapper):
                 for checked_value in ['fixed_price', 'competition']:    
                     # 依頼形式
                     target_chb = find_element(driver, By.XPATH, f"//input[@value='{checked_value}']/ancestor::label[contains(@class, 'YWqwp')]")
+                    safe_click(driver, target_chb)
                     logger.debug(f"[{proc_name}/{category}] 依頼形式クリック: {checked_value}")
-                    target_chb.click()
                 
                 random_delay(delay_range=(1.0, 2.0))
                 
                 search_btn = find_element(driver, By.XPATH, "//button[contains(@class, 'ulqrU') and contains(text(), '絞り込む')]")
-                search_btn.click()
+                safe_click(driver, search_btn)
                 logger.debug(f"[{proc_name}/{category}] 絞り込みボタンをクリック")
                 
                 wait_browser_load(driver)
@@ -161,7 +167,7 @@ class CrowdWorksScrapper(BaseScrapper):
                     self.mark_as_seen(job_id)
                     
                     logger.debug(f"[{proc_name}/{category}] 案件{count}: リンククリック")
-                    link.click()
+                    safe_click(driver, link)
                 else:
                     logger.warning(f"[{proc_name}/{category}] 案件{count}: リンク取得失敗 -> スキップ")
                     continue
