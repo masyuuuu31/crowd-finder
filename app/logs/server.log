@@ -1,0 +1,111 @@
+[2025-06-15 21:27:54] [INFO] [uvicorn.error] Started server process [11397]
+[2025-06-15 21:27:54] [INFO] [uvicorn.error] Started server process [11397]
+[2025-06-15 21:27:54] [INFO] [uvicorn.error] Waiting for application startup.
+[2025-06-15 21:27:54] [INFO] [uvicorn.error] Waiting for application startup.
+[2025-06-15 21:27:54] [INFO] [uvicorn.error] Application startup complete.
+[2025-06-15 21:27:54] [INFO] [uvicorn.error] Application startup complete.
+[2025-06-15 21:28:09] [INFO] [app.routes.scrape] [run_scrape] リクエスト受信
+[2025-06-15 21:28:09] [INFO] [app.service.scrape_service] [scrape_main] スクレイピング開始
+[2025-06-15 21:28:12] [INFO] [app.scrape.infra.driver_factory] [initialize_driver] Chromeドライバ初期化開始 (headless=True)
+[2025-06-15 21:28:12] [DEBUG] [app.scrape.infra.driver_factory] [initialize_driver] ヘッドレスモードで起動
+[2025-06-15 21:28:12] [INFO] [app.scrape.infra.driver_factory] [initialize_driver] ChromeDriverを起動中…
+[2025-06-15 21:28:16] [DEBUG] [app.scrape.infra.driver_factory] [initialize_driver] stealthオプションを適用中…
+[2025-06-15 21:28:16] [INFO] [app.scrape.infra.driver_factory] [initialize_driver] Chromeドライバ初期化完了
+[2025-06-15 21:28:16] [INFO] [app.service.scrape_service] [scrape_main] プラットホーム処理開始: クラウドワークス
+[2025-06-15 21:28:16] [INFO] [app.scrape.site.crowdworks.scrapper] [run] CroudWorksスクレイピング開始
+[2025-06-15 21:28:19] [INFO] [app.scrape.site.crowdworks.scrapper] [run] カテゴリ開始: システム開発
+[2025-06-15 21:28:21] [DEBUG] [app.scrape.site.crowdworks.scrapper] [run/システム開発] カテゴリボタンクリック: システム開発
+[2025-06-15 21:28:23] [DEBUG] [app.scrape.site.crowdworks.scrapper] [run/システム開発] 依頼形式クリック: fixed_price
+[2025-06-15 21:28:24] [DEBUG] [app.scrape.site.crowdworks.scrapper] [run/システム開発] 依頼形式クリック: competition
+[2025-06-15 21:28:26] [DEBUG] [app.scrape.site.crowdworks.scrapper] [run/システム開発] 絞り込みボタンをクリック
+[2025-06-15 21:28:28] [DEBUG] [app.scrape.site.crowdworks.scrapper] [run] 新着順に並び替え完了
+[2025-06-15 21:28:28] [INFO] [app.scrape.site.crowdworks.scrapper] [run/システム開発]1ページ目開始
+[2025-06-15 21:28:29] [INFO] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件数: 50件
+[2025-06-15 21:28:30] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件1: リンククリック
+[2025-06-15 21:28:32] [INFO] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件名: 【業務自動化／継続依頼あり】Googleフォーム→Slack＋Trello＋／Make（Integrom）経験者募集 業務システム・ソフトウェアの仕事の依頼
+[2025-06-15 21:28:34] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 価格: 10,000円 〜 30,000円
+[2025-06-15 21:28:36] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 納品希望日: 2025年07月01日
+[2025-06-15 21:28:38] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 応募期限: 2025年06月22日
+[2025-06-15 21:28:43] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件2: リンククリック
+[2025-06-15 21:28:44] [INFO] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件名: GoogleスプレッドシートにYouTubeデータを自動取得できる方を募集 データベース設計・構築の仕事の依頼
+[2025-06-15 21:28:47] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 価格: 〜 5,000円
+[2025-06-15 21:28:50] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 応募期限: 2025年06月22日
+[2025-06-15 21:28:53] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件3: リンククリック
+[2025-06-15 21:28:55] [INFO] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件名: Webサイトに埋め込みする地図・グラフの開発依頼 サイト構築・ウェブ開発の仕事の依頼
+[2025-06-15 21:28:57] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 価格: ワーカーと相談する
+[2025-06-15 21:29:01] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 応募期限: 2025年06月29日
+[2025-06-15 21:29:04] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件4: リンククリック
+[2025-06-15 21:29:06] [INFO] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件名: 【完全在宅】RPAの有料コンテンツに関するインタビュー依頼【Power Automate Desktop】 プログラミング講師・メンターの仕事の依頼
+[2025-06-15 21:29:08] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 価格: 550円
+[2025-06-15 21:29:11] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 応募期限: 2025年06月28日
+[2025-06-15 21:29:14] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件5: リンククリック
+[2025-06-15 21:29:16] [INFO] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件名: 【買い切り10-12万円】LINE公式アカウント自動配信システム開発依頼 サイト構築・ウェブ開発の仕事の依頼
+[2025-06-15 21:29:18] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 価格: 100,000円 〜 150,000円
+[2025-06-15 21:29:22] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 応募期限: 2025年06月29日
+[2025-06-15 21:29:26] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件6: リンククリック
+[2025-06-15 21:29:28] [INFO] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件名: 生成AIを活用した対話型コンテンツAPIの開発支援（バックエンド中心） 業務システム・ソフトウェアの仕事の依頼
+[2025-06-15 21:29:30] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 価格: ワーカーと相談する
+[2025-06-15 21:29:34] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 応募期限: 2025年06月29日
+[2025-06-15 21:29:38] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件7: リンククリック
+[2025-06-15 21:29:40] [INFO] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件名: EA mt5で売買システムの作成とシミュレーション その他（システム開発）の仕事の依頼
+[2025-06-15 21:29:42] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 価格: 50,000円 〜 100,000円
+[2025-06-15 21:29:45] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 応募期限: 2025年06月28日
+[2025-06-15 21:29:48] [WARNING] [app.scrape.infra.intraction_manager] [find_element] 要素取得失敗: 'xpath=.//li[contains(@class, 'VXZpw')]' timeout=0.2
+Traceback (most recent call last):
+  File "/Users/inoueritsu/Desktop/dev/my_project/crowd-finder/app/scrape/infra/intraction_manager.py", line 54, in find_element
+    element = wait.until(EC.presence_of_element_located((by, identifier)))
+  File "/Users/inoueritsu/Desktop/dev/my_project/crowd-finder/venv/lib/python3.13/site-packages/selenium/webdriver/support/wait.py", line 146, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+0   chromedriver                        0x0000000104cea668 cxxbridge1$str$ptr + 2723108
+1   chromedriver                        0x0000000104ce28dc cxxbridge1$str$ptr + 2690968
+2   chromedriver                        0x0000000104836714 cxxbridge1$string$len + 90428
+3   chromedriver                        0x000000010487d7c0 cxxbridge1$string$len + 381416
+4   chromedriver                        0x0000000104872f94 cxxbridge1$string$len + 338364
+5   chromedriver                        0x00000001048bede8 cxxbridge1$string$len + 649232
+6   chromedriver                        0x00000001048719c8 cxxbridge1$string$len + 332784
+7   chromedriver                        0x0000000104cae28c cxxbridge1$str$ptr + 2476360
+8   chromedriver                        0x0000000104cb1520 cxxbridge1$str$ptr + 2489308
+9   chromedriver                        0x0000000104c8fa78 cxxbridge1$str$ptr + 2351412
+10  chromedriver                        0x0000000104cb1da8 cxxbridge1$str$ptr + 2491492
+11  chromedriver                        0x0000000104c80d6c cxxbridge1$str$ptr + 2290728
+12  chromedriver                        0x0000000104cd1d74 cxxbridge1$str$ptr + 2622512
+13  chromedriver                        0x0000000104cd1f00 cxxbridge1$str$ptr + 2622908
+14  chromedriver                        0x0000000104ce2528 cxxbridge1$str$ptr + 2690020
+15  libsystem_pthread.dylib             0x00000001888a6c0c _pthread_start + 136
+16  libsystem_pthread.dylib             0x00000001888a1b80 thread_start + 8
+
+[2025-06-15 21:29:49] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件8: リンククリック
+[2025-06-15 21:29:50] [INFO] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件名: WEBサイトのカスタマイズ サイト構築・ウェブ開発の仕事の依頼
+[2025-06-15 21:29:53] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 価格: 〜 5,000円
+[2025-06-15 21:29:57] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 応募期限: 2025年06月15日
+[2025-06-15 21:30:00] [WARNING] [app.scrape.infra.intraction_manager] [find_element] 要素取得失敗: 'xpath=.//li[contains(@class, 'VXZpw')]' timeout=0.2
+Traceback (most recent call last):
+  File "/Users/inoueritsu/Desktop/dev/my_project/crowd-finder/app/scrape/infra/intraction_manager.py", line 54, in find_element
+    element = wait.until(EC.presence_of_element_located((by, identifier)))
+  File "/Users/inoueritsu/Desktop/dev/my_project/crowd-finder/venv/lib/python3.13/site-packages/selenium/webdriver/support/wait.py", line 146, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+0   chromedriver                        0x0000000104cea668 cxxbridge1$str$ptr + 2723108
+1   chromedriver                        0x0000000104ce28dc cxxbridge1$str$ptr + 2690968
+2   chromedriver                        0x0000000104836714 cxxbridge1$string$len + 90428
+3   chromedriver                        0x000000010487d7c0 cxxbridge1$string$len + 381416
+4   chromedriver                        0x0000000104872f94 cxxbridge1$string$len + 338364
+5   chromedriver                        0x00000001048bede8 cxxbridge1$string$len + 649232
+6   chromedriver                        0x00000001048719c8 cxxbridge1$string$len + 332784
+7   chromedriver                        0x0000000104cae28c cxxbridge1$str$ptr + 2476360
+8   chromedriver                        0x0000000104cb1520 cxxbridge1$str$ptr + 2489308
+9   chromedriver                        0x0000000104c8fa78 cxxbridge1$str$ptr + 2351412
+10  chromedriver                        0x0000000104cb1da8 cxxbridge1$str$ptr + 2491492
+11  chromedriver                        0x0000000104c80d6c cxxbridge1$str$ptr + 2290728
+12  chromedriver                        0x0000000104cd1d74 cxxbridge1$str$ptr + 2622512
+13  chromedriver                        0x0000000104cd1f00 cxxbridge1$str$ptr + 2622908
+14  chromedriver                        0x0000000104ce2528 cxxbridge1$str$ptr + 2690020
+15  libsystem_pthread.dylib             0x00000001888a6c0c _pthread_start + 136
+16  libsystem_pthread.dylib             0x00000001888a1b80 thread_start + 8
+
+[2025-06-15 21:30:01] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件9: リンククリック
+[2025-06-15 21:30:02] [INFO] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 案件名: 【急募】既存システムの環境コピー・ドメイン紐付け・簡易手順書作成 サイト構築・ウェブ開発の仕事の依頼
+[2025-06-15 21:30:05] [DEBUG] [app.scrape.site.crowdworks.scrapper] [scrape_projects_on_current_page/システム開発] 価格: 5,000円 〜 10,000円

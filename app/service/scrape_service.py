@@ -78,6 +78,8 @@ def scrape_main(handle_info: HandleInfo):
         except Exception as e:
             logger.error(f"[{proc_name}] チャンク送信失敗: {start}~{start + len(chunk)}件目", exc_info=True)
 
-    
+    if driver:
+        driver.quit()
+        
     logger.info(f"[{proc_name}] スクレイピング処理終了")
     
