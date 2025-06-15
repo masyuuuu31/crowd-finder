@@ -4,6 +4,18 @@ from ...schema.schemas import ProjectInfo
 from typing import List
 
 class BaseScrapper(ABC):
+    
+    def __init__(self):
+        self._seen_job_ids: set[str] = set()
+
+    def clear_seen_jobs(self):
+        self._seen_job_ids.clear()
+
+    def is_duplicate(self, job_id: str) -> bool:
+        return job_id in self._seen_job_ids
+
+    def mark_as_seen(self, job_id: str):
+        self._seen_job_ids.add(job_id)
 
     @property
     @abstractmethod

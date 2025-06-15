@@ -16,7 +16,7 @@ CNST_CATEGORY_WEB = "Web制作"
 CNST_CATEGORY_DEV = "システム開発"
 
 # 開発モード(True=開発モードON/ False=開発モードOFF)
-DEBUG_MODE = True
+DEBUG_MODE = False
 
 # スクレイピング中断件数（開発用）
-DEV_STOP_COUNT = 2
+DEV_STOP_COUNT = 1
